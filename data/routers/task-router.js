@@ -5,13 +5,14 @@ const tasks = require('../helpers/tasks-helper');
 const router = express.Router();
 
 router.get('/:id/tasks', (req, res) => {
-  const projectID = req.params;
-
-  db.findTask(projectID)
+  tasks
+    .findTask(req.params.id)
     .then(tasks => {
       if (tasks.length) {
-        tasks.completed = tasks.completed ? true : false;
-        res.status(200).json(tasks);
+        const formattedTasks = tasks.map(task => {
+          return { ...task, completed: task.completed ? true : false };
+        });
+        res.status(200).json(formattedTasks);
       } else {
         res.status(404).json({
           message: 'The post with the specified ID does not exist.'
@@ -27,13 +28,13 @@ router.get('/:id/tasks', (req, res) => {
 });
 
 router.post('/:id/tasks', (req, res) => {
-  const task = { ...req.body, project_id: req.params.project_id };
+  const task = { ...req.body, project_id: req.params.id };
 
   tasks
-    .findByProjectId(project_id)
+    .findById(task.project_id)
     .then(project => {
       if (project) {
-        tasks.insertTask(task, task_id).then(task => {
+        tasks.insertTask(task).then(task => {
           res.status(201).json(task);
         });
       } else {

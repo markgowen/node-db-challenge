@@ -8,8 +8,10 @@ router.get('/', (req, res) => {
   projects
     .find()
     .then(projects => {
-      projects.completed = projects.completed ? true : false;
-      res.status(200).json(projects);
+      const formattedProjects = projects.map(project => {
+        return { ...project, completed: project.completed ? true : false };
+      });
+      res.status(200).json(formattedProjects);
     })
     .catch(err => {
       console.log(err);
