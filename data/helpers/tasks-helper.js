@@ -5,8 +5,17 @@ module.exports = {
   insert
 };
 
-function find() {
-  return db('tasks');
+function find(project_id) {
+  return db
+    .select(
+      'project_name',
+      'project_description',
+      'task_name',
+      'task_description'
+    )
+    .from('tasks')
+    .join('projects', 'tasks.project_id', 'project_id')
+    .where({ project_id });
 }
 
 function insert(task) {
