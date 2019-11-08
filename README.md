@@ -38,13 +38,21 @@ Commit your code regularly and use descriptive messages. This helps both you (in
 
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
-- [ ] Explain the difference between `Relational Databases` and `SQL`.
+- [x] Explain the difference between `Relational Databases` and `SQL`.
 
-- [ ] Why do tables need a `primary key`?
+      They are essentially the same thing, but relational databases are the software itself where sql is the language to manipulate the db.
 
-- [ ] What is the name given to a table column that references the primary key on another table.
+- [x] Why do tables need a `primary key`?
 
-- [ ] What do we need in order to have a _many to many_ relationship between two tables.
+      To make the table unique
+
+- [x] What is the name given to a table column that references the primary key on another table.
+
+      Foreign Key
+
+- [x] What do we need in order to have a _many to many_ relationship between two tables.
+
+      Multiple records in another table
 
 ## Minimum Viable Product
 
@@ -54,8 +62,8 @@ Complete the following tasks:
 
 - [x] Design the data model and use _knex migrations_ to create the database and tables.
 - [ ] Build an API with endpoints for:
-  - [ ] adding resources.
-  - [ ] retrieving a list of resources.
+  - [x] adding resources.
+  - [x] retrieving a list of resources.
   - [x] adding projects.
   - [x] retrieving a list of projects.
   - [ ] adding tasks.

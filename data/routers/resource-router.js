@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 router.post('/', validateResource, (req, res) => {
   resources
-    .insert(req.data)
+    .insert(req.body)
     .then(resource => {
       res.status(201).json(resource);
     })
