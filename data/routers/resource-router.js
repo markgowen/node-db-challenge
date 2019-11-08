@@ -1,6 +1,8 @@
-const router = require('express').Router();
+const express = require('express');
 
 const resources = require('../helpers/resources-helper');
+
+const router = express.Router();
 
 router.get('/', (req, res) => {
   resources
@@ -33,3 +35,5 @@ function validateResource(req, res, next) {
   }
   next();
 }
+
+module.exports = router;

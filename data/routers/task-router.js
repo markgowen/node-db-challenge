@@ -1,23 +1,28 @@
-const router = require('express').Router();
+const express = require('express');
 
 const tasks = require('../helpers/tasks-helper');
 
+const router = express.Router();
+
 router.get('/:id/tasks', (req, res) => {
-  tasks.completed = tasks.completed ? true : false;
-  tasks
-    .findById(req.params)
+  const projectID = req.params;
+
+  db.findTask(projectID)
     .then(tasks => {
       if (tasks.length) {
+        tasks.completed = tasks.completed ? true : false;
         res.status(200).json(tasks);
       } else {
-        res
-          .status(404)
-          .json({ message: 'Could not retrieve tasks for given project' });
+        res.status(404).json({
+          message: 'The post with the specified ID does not exist.'
+        });
       }
     })
     .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: 'Failed to get tasks' });
+      console.log('error', err);
+      res
+        .status(500)
+        .json({ error: 'The comments information could not be retrieved.' });
     });
 });
 
@@ -25,10 +30,10 @@ router.post('/:id/tasks', (req, res) => {
   const task = { ...req.body, project_id: req.params.project_id };
 
   tasks
-    .findById(project_id)
+    .findByProjectId(project_id)
     .then(project => {
       if (project) {
-        tasks.insertTask(task, project_id).then(task => {
+        tasks.insertTask(task, task_id).then(task => {
           res.status(201).json(task);
         });
       } else {
@@ -42,3 +47,5 @@ router.post('/:id/tasks', (req, res) => {
       res.status(500).json({ error: 'Failed to create task' });
     });
 });
+
+module.exports = router;

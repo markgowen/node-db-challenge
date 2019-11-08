@@ -2,19 +2,19 @@ const db = require('../dbConfig');
 
 module.exports = {
   findById,
+  findTask,
   insertTask
 };
 
 function findById(project_id) {
+  return db('projects').where({ project_id }).first();
+}
+
+function findTask(project_id) {
   return db
-    .select(
-      'project_name',
-      'project_description',
-      'task_name',
-      'task_description'
-    )
+    .select('project_name', 'project_description', 'task_description')
     .from('tasks')
-    .join('projects', 'tasks.project_id', 'project_id')
+    .join('projects', 'tasks.project_id', 'projects.project_id')
     .where({ project_id });
 }
 

@@ -1,12 +1,14 @@
-const router = require('express').Router();
+const express = require('express');
 
 const projects = require('../helpers/projects-helper');
 
+const router = express.Router();
+
 router.get('/', (req, res) => {
-  projects.completed = projects.completed ? true : false;
   projects
     .find()
     .then(projects => {
+      projects.completed = projects.completed ? true : false;
       res.status(200).json(projects);
     })
     .catch(err => {
@@ -16,9 +18,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', validateProject, (req, res) => {
+  const projectData = req.body;
 
   projects
-    .insert(req.data)
+    .insert(projectData)
     .then(project => {
       res.status(201).json(project);
     })
@@ -35,3 +38,5 @@ function validateProject(req, res, next) {
   }
   next();
 }
+
+module.exports = router;
