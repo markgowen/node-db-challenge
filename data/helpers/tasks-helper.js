@@ -1,11 +1,11 @@
 const db = require('../dbConfig');
 
 module.exports = {
-  find,
-  insert
+  findById,
+  insertTask
 };
 
-function find(project_id) {
+function findById(project_id) {
   return db
     .select(
       'project_name',
@@ -18,7 +18,7 @@ function find(project_id) {
     .where({ project_id });
 }
 
-function insert(task) {
+function insertTask(task) {
   return db('tasks')
     .insert(task)
     .then(ids => ({ task_id: ids[0] }));

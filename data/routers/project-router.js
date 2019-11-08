@@ -3,6 +3,7 @@ const router = require('express').Router();
 const projects = require('../helpers/projects-helper');
 
 router.get('/', (req, res) => {
+  projects.completed = projects.completed ? true : false;
   projects
     .find()
     .then(projects => {
@@ -15,7 +16,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', validateProject, (req, res) => {
-  projects.completed = projects.completed ? true : false;
 
   projects
     .insert(req.data)
