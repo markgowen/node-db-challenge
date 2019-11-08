@@ -15,6 +15,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', validateProject, (req, res) => {
+  projects.completed = projects.completed ? true : false;
+
   projects
     .insert(req.data)
     .then(project => {
